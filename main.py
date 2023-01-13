@@ -61,8 +61,6 @@ def exit(msg):
 def check_devices_connect():
     result = getoutput('adb devices')
     print_line()
-    print(result)
-    print_line()
     device_list = re.findall(r"(.+?)	device", result)
     if len(device_list) < 1:
         exit("No devices found, please connect devices first")
@@ -83,19 +81,13 @@ def add_device_config():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    add_device_config()
-
-    for info in device_info:
-        info.print_detail()
-    # for info in device_info:
-    # print(info.print())
-    # result = getoutput("adb shell dumpsys location | grep 'last location=Location\\[network'")
-    # print(result)
-    # print(re.findall(r"last location=Location\[network (.+?),(.+?) \S", result))
-    # device_info.print()
 
     # first, check at least one device connected
-    # check_devices_connect()
+    check_devices_connect()
 
-    # info.print()
+    # init devices config
+    add_device_config()
+    for device in device_info:
+        device.print_detail()
+
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
